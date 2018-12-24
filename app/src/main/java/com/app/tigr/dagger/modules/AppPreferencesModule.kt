@@ -1,4 +1,4 @@
-package com.app.tigr.dagger
+package com.app.tigr.dagger.modules
 
 import android.content.Context
 import com.app.tigr.data.repository.TigrAppPreferences

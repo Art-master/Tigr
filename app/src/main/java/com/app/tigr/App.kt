@@ -2,9 +2,10 @@ package com.app.tigr
 
 import android.app.Activity
 import android.app.Application
+import android.content.Intent
 import com.app.tigr.common.Settings
 import com.app.tigr.dagger.AppComponent
-import com.app.tigr.dagger.ContextModule
+import com.app.tigr.dagger.modules.ContextModule
 import com.app.tigr.dagger.DaggerAndroidAppComponent
 import com.app.tigr.dagger.DaggerAppComponent
 import com.squareup.leakcanary.LeakCanary
@@ -26,11 +27,14 @@ class App : Application(), HasActivityInjector {
     private val tokenTracker = object : VKAccessTokenTracker() {
         override fun onVKAccessTokenChanged(oldToken: VKAccessToken?, newToken: VKAccessToken?) {
             if (newToken == null) {
+/*                val intent = Intent(applicationContext, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)*/
+
                 val preference = appComponent.getPreferences()
                 preference.set(Settings.Name.USER_TOKEN, oldToken!!.accessToken)
             }
         }
-
     }
 
     override fun onCreate() {

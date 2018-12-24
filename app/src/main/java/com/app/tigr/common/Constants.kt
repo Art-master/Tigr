@@ -8,7 +8,14 @@ class Constants {
         const val SETTINGS_FILE_NAME = "tigr_app_settings"
     }
 
-    enum class Keys constructor(private val value: String) {
+    enum class Keys constructor(private val value: String)
+
+
+    interface Network{
+        companion object {
+            const val BASE_URL = "https://api.vk.com/"
+            const val VERSION_API = "5.92"
+        }
     }
 }
 

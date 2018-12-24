@@ -2,6 +2,7 @@ package com.app.tigr.dagger
 
 import android.content.Context
 import com.app.tigr.App
+import com.app.tigr.dagger.modules.AppAndroidModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

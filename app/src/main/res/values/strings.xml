@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name" translatable="false">Tigr</string>
-    <integer name="com_vk_sdk_AppId">6779616</integer>
-    <string name="title_activity_login">LoginActivity</string>
+    <integer name="com_vk_sdk_AppId">6786161</integer>
 </resources>

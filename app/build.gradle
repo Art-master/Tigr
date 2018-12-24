@@ -62,6 +62,8 @@ dependencies {
     //Retrofit
     implementation 'com.github.cd-butterfly:retrofit:1.0.3'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
     //Rx
     implementation 'io.reactivex.rxjava2:rxjava:2.2.3'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
