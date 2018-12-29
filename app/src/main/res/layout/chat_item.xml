@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/chatItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        app:cardUseCompatPadding="true"
         card_view:cardCornerRadius="4dp">
 
         <android.support.v7.widget.LinearLayoutCompat
@@ -24,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/imageUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"/>
 
@@ -50,8 +52,8 @@
 
                     <ImageView
                         android:id="@+id/imageLastMessagePersona"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:paddingLeft="3dp"
                         android:paddingRight="3dp"/>
 
@@ -59,7 +61,7 @@
                         android:id="@+id/textLastMessage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1" />
+                        android:maxLines="2" />
                 </LinearLayout>
             </android.support.v7.widget.LinearLayoutCompat>
         </android.support.v7.widget.LinearLayoutCompat>

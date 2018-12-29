@@ -37,13 +37,13 @@ class ChatPresenter : MvpPresenter<ContractChatView>(), ContractChatPresenter {
                 .subscribeBy(
                         onSuccess = { it ->
                             viewState.showChat(it.response)
-                            asyncRequest(token)
+                            repeatRequest(token)
                         },
                         onError = { it.printStackTrace() })
         dispose.add(request)
     }
 
-    private fun asyncRequest(token: String) {
+    private fun repeatRequest(token: String) {
         val request = connection.getMessages(token)
                 .delay(3, TimeUnit.SECONDS, Schedulers.io())
                 .repeat()
@@ -58,6 +58,9 @@ class ChatPresenter : MvpPresenter<ContractChatView>(), ContractChatPresenter {
 
     private fun getSavedToken() = preferences.get(Settings.Name.USER_TOKEN)!!
 
+    override fun viewIsPaused() = dispose.clear()
+
+    override fun viewIsResumed() = firstRequest(getSavedToken())
 
     override fun destroyView(view: ContractChatView?) {
         super.destroyView(view)

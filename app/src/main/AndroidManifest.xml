@@ -41,6 +41,9 @@
             android:name=".ui.chat.mvp.ChatActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
+        <activity
+            android:name=".ui.dialog.mvp.DialogActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

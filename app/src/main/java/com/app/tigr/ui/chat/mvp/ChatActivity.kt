@@ -7,7 +7,7 @@ import com.app.tigr.ui.chat.impl.ContractChatView
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.app.tigr.R
-import com.app.tigr.domain.message.Conversations
+import com.app.tigr.domain.response.message.Conversations
 import kotlinx.android.synthetic.main.activity_chat.*
 
 class ChatActivity: MvpAppCompatActivity(), ContractChatView {
@@ -28,11 +28,25 @@ class ChatActivity: MvpAppCompatActivity(), ContractChatView {
             presenter.attachView(this)
             presenter.viewIsReady()
         }
-
     }
 
     override fun showChat(data: Conversations?){
         recyclerMessages.adapter = ChatAdapter(data, applicationContext)
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.viewIsResumed()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.viewIsPaused()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.detachView(this)
+        presenter.destroyView(this)
+    }
 }

@@ -59,6 +59,9 @@ dependencies {
 
     implementation "android.arch.paging:runtime:1.0.1"
 
+    //Material design
+    //implementation 'com.google.android.material:material:1.0.0'
+
     //Retrofit
     implementation 'com.github.cd-butterfly:retrofit:1.0.3'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
