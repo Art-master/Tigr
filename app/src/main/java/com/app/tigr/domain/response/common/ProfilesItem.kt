@@ -1,9 +1,12 @@
 package com.app.tigr.domain.response.common
 
+import android.os.Parcelable
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Generated("com.robohorse.robopojogenerator")
+@Parcelize
 data class ProfilesItem(
 
 	@field:SerializedName("can_access_closed")
@@ -35,4 +38,4 @@ data class ProfilesItem(
 
 	@field:SerializedName("is_closed")
 	val isClosed: Boolean? = null
-)
+) : Parcelable

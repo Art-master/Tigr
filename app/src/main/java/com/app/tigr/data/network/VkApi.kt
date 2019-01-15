@@ -1,7 +1,7 @@
 package com.app.tigr.data.network
 
 import com.app.tigr.domain.response.ResponseDialog
-import com.app.tigr.domain.response.MsgResponse
+import com.app.tigr.domain.response.ConversationsResponse
 import com.app.tigr.domain.response.ResponseMsgSend
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -16,7 +16,7 @@ interface VkApi{
                          @Query("lang") lang: Int,
                          @Query("test_mode") testMode: Int,
                          @Query("access_token") token: String,
-                         @Query("v") versionApi: String): Single<MsgResponse>
+                         @Query("v") versionApi: String): Single<ConversationsResponse>
 
     @GET("method/messages.getHistory")
     fun getDialog(@Query("offset") offset: Int,

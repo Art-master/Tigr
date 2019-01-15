@@ -1,50 +1,53 @@
 package com.app.tigr.domain.response.dialog
 
+import android.os.Parcelable
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Generated("com.robohorse.robopojogenerator")
+@Parcelize
 data class ItemsItem(
 
-	@field:SerializedName("date")
+        @field:SerializedName("date")
 	val date: Int? = null,
 
-	@field:SerializedName("important")
+        @field:SerializedName("important")
 	val important: Boolean? = null,
 
-	@field:SerializedName("from_id")
+        @field:SerializedName("from_id")
 	val fromId: Int? = null,
 
-	@field:SerializedName("attachments")
+        @field:SerializedName("attachments")
 	val attachments: List<AttachmentsItem?>? = null,
 
-	@field:SerializedName("is_hidden")
+        @field:SerializedName("is_hidden")
 	val isHidden: Boolean? = null,
 
-	@field:SerializedName("fwd_messages")
-	val fwdMessages: List<Any?>? = null,
+        @field:SerializedName("fwd_messages")
+        val fwdMessages: List<FwdMessagesItem?>? = null,
 
-	@field:SerializedName("id")
+        @field:SerializedName("id")
 	val id: Int? = null,
 
-	@field:SerializedName("text")
+        @field:SerializedName("text")
 	val text: String? = null,
 
-	@field:SerializedName("random_id")
+        @field:SerializedName("random_id")
 	val randomId: Int? = null,
 
-	@field:SerializedName("out")
+        @field:SerializedName("out")
 	val out: Int? = null,
 
-	@field:SerializedName("peer_id")
+        @field:SerializedName("peer_id")
 	val peerId: Int? = null,
 
-	@field:SerializedName("conversation_message_id")
+        @field:SerializedName("conversation_message_id")
 	val conversationMessageId: Int? = null,
 
-	@field:SerializedName("update_time")
+        @field:SerializedName("update_time")
 	val updateTime: Int? = null
-){
+) : Parcelable {
 	enum class Type(str:String){
 		PHOTO("photo"),
 		VIDEO("video"),
@@ -58,5 +61,4 @@ data class ItemsItem(
 		STICKER("sticker"),
 		GIFT("gift")
 	}
-
 }

@@ -1,9 +1,12 @@
 package com.app.tigr.domain.response.message
 
+import android.os.Parcelable
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Generated("com.robohorse.robopojogenerator")
+@Parcelize
 data class GroupsItem(
 
 	@field:SerializedName("is_admin")
@@ -38,4 +41,4 @@ data class GroupsItem(
 
 	@field:SerializedName("is_closed")
 	val isClosed: Int? = null
-)
+) : Parcelable

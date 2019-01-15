@@ -1,24 +1,33 @@
 package com.app.tigr.domain.response.message
 
+import android.os.Parcelable
 import com.app.tigr.domain.response.common.ProfilesItem
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+/** list of user conversations */
 @Generated("com.robohorse.robopojogenerator")
+@Parcelize
 data class Conversations(
 
-		@field:SerializedName("unread_count")
-	val unreadCount: Int? = null,
+        /** number of unread conversations */
+        @field:SerializedName("unread_count")
+        val unreadCount: Int? = null,
 
-		@field:SerializedName("count")
-	val count: Int? = null,
+        /** number of results */
+        @field:SerializedName("count")
+        val count: Int? = null,
 
-		@field:SerializedName("profiles")
-	val profiles: List<ProfilesItem?>? = null,
+        /** array of user objects */
+        @field:SerializedName("profiles")
+        val profiles: List<ProfilesItem?>? = null,
 
-		@field:SerializedName("groups")
-	val groups: List<GroupsItem?>? = null,
+        /** array of user groups */
+        @field:SerializedName("groups")
+        val groups: List<GroupsItem?>? = null,
 
-		@field:SerializedName("items")
-	val items: List<ItemsItem?>? = null
-)
+        /** conversations */
+        @field:SerializedName("items")
+        val items: List<ItemsItem?>? = null
+) : Parcelable

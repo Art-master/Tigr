@@ -5,7 +5,7 @@ import com.app.tigr.common.Constants
 import com.app.tigr.common.Settings
 import com.app.tigr.domain.send.Message
 import com.app.tigr.domain.response.ResponseDialog
-import com.app.tigr.domain.response.MsgResponse
+import com.app.tigr.domain.response.ConversationsResponse
 import com.app.tigr.domain.response.ResponseMsgSend
 import io.reactivex.Single
 
@@ -17,7 +17,7 @@ class ApiProvider {
 
     private val appLanguage = Constants.APP_LANGUAGE
 
-    fun getMessages(token: String): Single<MsgResponse> {
+    fun getMessages(token: String): Single<ConversationsResponse> {
        return appNetwork!!.getConversations(
                0,20,"all",1, 0,1,
                token, Constants.Network.VERSION_API)

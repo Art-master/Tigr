@@ -1,12 +1,15 @@
 package com.app.tigr.domain.response
 
+import android.os.Parcelable
 import com.app.tigr.domain.response.message.Conversations
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Generated("com.robohorse.robopojogenerator")
-data class MsgResponse(
+@Parcelize
+data class ConversationsResponse(
 
 	@field:SerializedName("response")
 	val response: Conversations? = null
-)
+) : Parcelable

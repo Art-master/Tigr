@@ -1,11 +1,14 @@
 package com.app.tigr.domain.response.dialog
 
+import android.os.Parcelable
 import com.app.tigr.domain.response.common.CanWrite
 import com.app.tigr.domain.response.common.Peer
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Generated("com.robohorse.robopojogenerator")
+@Parcelize
 data class ConversationsItem(
 
         @field:SerializedName("last_message_id")
@@ -22,4 +25,4 @@ data class ConversationsItem(
 
         @field:SerializedName("out_read")
 	val outRead: Int? = null
-)
+) : Parcelable

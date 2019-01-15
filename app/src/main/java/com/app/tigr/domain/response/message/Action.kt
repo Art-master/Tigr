@@ -1,9 +1,12 @@
 package com.app.tigr.domain.response.message
 
+import android.os.Parcelable
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Generated("com.robohorse.robopojogenerator")
+@Parcelize
 data class Action(
 
 	@field:SerializedName("payload")
@@ -14,4 +17,4 @@ data class Action(
 
 	@field:SerializedName("type")
 	val type: String? = null
-)
+) : Parcelable

@@ -1,10 +1,13 @@
 package com.app.tigr.domain.response.dialog
 
-import com.app.tigr.domain.response.common.Photo
+import android.os.Parcelable
+import com.app.tigr.domain.response.attachments.Photo
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 @Generated("com.robohorse.robopojogenerator")
+@Parcelize
 data class AttachmentsItem(
 
         @field:SerializedName("photo")
@@ -12,4 +15,4 @@ data class AttachmentsItem(
 
         @field:SerializedName("type")
 	val type: String? = null
-)
+) : Parcelable
