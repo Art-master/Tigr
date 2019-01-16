@@ -4,6 +4,7 @@ import android.content.Context
 import com.app.tigr.dagger.modules.AppModule
 import com.app.tigr.dagger.modules.ContextModule
 import com.app.tigr.data.network.ApiProvider
+import com.app.tigr.impl.AppDatabase
 import com.app.tigr.impl.AppNetwork
 import com.app.tigr.impl.AppPreferences
 import dagger.Component
@@ -16,4 +17,5 @@ interface AppComponent {
     fun getPreferences(): AppPreferences
     fun getNetworkConnection(): AppNetwork
     fun getApi(): ApiProvider
+    fun getDatabase(): AppDatabase
 }

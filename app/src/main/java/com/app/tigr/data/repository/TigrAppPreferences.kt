@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Execute save and receive the app preferences
  */
-class TigrAppPreferences @Inject constructor(context: Context) : AppPreferences {
+class TigrAppPreferences constructor(context: Context) : AppPreferences {
     private var preferences: SharedPreferences = context.getSharedPreferences(SETTINGS_FILE_NAME, 0)
 
     override fun get(settName: Settings.Name): String? {
