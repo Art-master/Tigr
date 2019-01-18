@@ -12,16 +12,16 @@ data class Dialogs(
 
         /** number of results */
         @field:SerializedName("count")
-        val count: Int? = null,
+        val count: Int = 0,
 
         /** conversations */
         @field:SerializedName("items")
-        val items: List<ItemsItem?>? = null,
+        val items: List<ItemsItem> = emptyList(),
 
         /** array of user objects */
         @field:SerializedName("profiles")
-        val profiles: List<ProfilesItem?>? = null,
+        val profiles: List<ProfilesItem> = emptyList(),
 
         @field:SerializedName("conversations")
-        val conversations: List<ConversationsItem?>? = null
+        val conversations: List<ConversationsItem> = emptyList()
 ) : Parcelable

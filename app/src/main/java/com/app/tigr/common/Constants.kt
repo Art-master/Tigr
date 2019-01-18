@@ -12,8 +12,9 @@ class Constants {
     enum class Keys constructor(value: String){
         USER_ID("com.app.tigr.user.id"),
         PEER_ID("com.app.tigr.peer.id"),
-        MESSAGE("com.app.tigr.message"),
-        MESSAGE_SENT("com.app.tigr.message.sent")
+        MESSAGE("com.app.tigr.text"),
+        MESSAGE_SENT("com.app.tigr.text.sent"),
+        MESSAGE_SENDING("com.app.tigr.text.sending")
     }
 
 

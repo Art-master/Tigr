@@ -11,29 +11,29 @@ import kotlinx.android.parcel.Parcelize
 data class FwdMessagesItem(
 
         @field:SerializedName("date")
-	val date: Int? = null,
+        val date: Int = 0,
 
         @field:SerializedName("update_time")
-	val updateTime: Int? = null,
+        val updateTime: Int = 0,
 
         @field:SerializedName("from_id")
-	val fromId: Int? = null,
+        val fromId: Int = 0,
 
         @field:SerializedName("attachments")
-        val attachments: List<Attachment?>? = null,
+        val attachments: List<Attachment> = emptyList(),
 
         @field:SerializedName("fwd_messages")
-	val fwdMessages: List<FwdMessagesItem?>? = null,
+        val fwdMessages: List<FwdMessagesItem> = emptyList(),
 
         @field:SerializedName("text")
-	val text: String? = null,
+        val text: String = "",
 
         @field:SerializedName("id")
-	val id: Int? = null,
+        val id: Int = 0,
 
         @field:SerializedName("conversation_message_id")
-	val conversationMessageId: Int? = null,
+        val conversationMessageId: Int = 0,
 
         @field:SerializedName("peer_id")
-	val peerId: Int? = null
+        val peerId: Int = 0
 ) : Parcelable

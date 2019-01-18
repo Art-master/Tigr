@@ -12,7 +12,8 @@ import com.arellomobile.mvp.MvpView
 interface ContractDialogView: MvpView {
     fun showDialog(pagedListLiveData: LiveData<PagedList<ItemsItem>>,
                    adapter: PagedListAdapter<ItemsItem, DialogAdapter.DialogViewHolder>)
-    fun showEditField(sendData: Message)
+
+    fun showEditField()
     fun updateDialog(pagedListLiveData: LiveData<PagedList<ItemsItem>>,
                      adapter: PagedListAdapter<ItemsItem, DialogAdapter.DialogViewHolder>)
 }

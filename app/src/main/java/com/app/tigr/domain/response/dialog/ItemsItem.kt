@@ -10,43 +10,43 @@ import kotlinx.android.parcel.Parcelize
 data class ItemsItem(
 
         @field:SerializedName("date")
-	val date: Int? = null,
+        val date: Int = 0,
 
         @field:SerializedName("important")
-	val important: Boolean? = null,
+        val important: Boolean = false,
 
         @field:SerializedName("from_id")
-	val fromId: Int? = null,
+        val fromId: Int = 0,
 
         @field:SerializedName("attachments")
-	val attachments: List<AttachmentsItem?>? = null,
+        val attachments: List<AttachmentsItem> = emptyList(),
 
         @field:SerializedName("is_hidden")
 	val isHidden: Boolean? = null,
 
         @field:SerializedName("fwd_messages")
-        val fwdMessages: List<FwdMessagesItem?>? = null,
+        val fwdMessages: List<FwdMessagesItem> = emptyList(),
 
         @field:SerializedName("id")
-	val id: Int? = null,
+        val id: Int = 0,
 
         @field:SerializedName("text")
-	val text: String? = null,
+        val text: String = "",
 
         @field:SerializedName("random_id")
-	val randomId: Int? = null,
+        val randomId: Int = 0,
 
         @field:SerializedName("out")
-	val out: Int? = null,
+        val out: Int = 0,
 
         @field:SerializedName("peer_id")
-	val peerId: Int? = null,
+        val peerId: Int = 0,
 
         @field:SerializedName("conversation_message_id")
-	val conversationMessageId: Int? = null,
+        val conversationMessageId: Int = 0,
 
         @field:SerializedName("update_time")
-	val updateTime: Int? = null
+        val updateTime: Int = 0
 ) : Parcelable {
 	enum class Type(str:String){
 		PHOTO("photo"),

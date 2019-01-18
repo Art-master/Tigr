@@ -5,5 +5,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ResponseMsgSend(
-        val response: Int? = null
+        val response: Int = 0
 ) : Parcelable

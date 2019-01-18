@@ -16,11 +16,11 @@ data class Conversation(
         @field:SerializedName("peer")
         val peer: Peer? = null,
 
-        /** ID of the last read incoming message */
+        /** ID of the last read incoming text */
         @field:SerializedName("in_read")
         val inRead: Int? = null,
 
-        /** ID of the last read outgoing message */
+        /** ID of the last read outgoing text */
         @field:SerializedName("out_read")
         val outRead: Int? = null,
 

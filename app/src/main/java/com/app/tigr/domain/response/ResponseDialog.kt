@@ -11,5 +11,5 @@ import kotlinx.android.parcel.Parcelize
 data class ResponseDialog(
 
 	@field:SerializedName("response")
-	val response: Dialogs? = null
+    val response: Dialogs = Dialogs()
 ) : Parcelable

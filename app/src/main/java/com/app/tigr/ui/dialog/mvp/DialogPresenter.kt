@@ -1,14 +1,13 @@
 package com.app.tigr.ui.dialog.mvp
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import com.app.tigr.App
 import com.app.tigr.common.Constants
+import com.app.tigr.domain.response.ResponseMsgSend
 import com.app.tigr.domain.response.dialog.ItemsItem
 import com.app.tigr.domain.send.Message
 import com.app.tigr.ui.dialog.impl.ContractDialogPresenter
@@ -24,14 +23,19 @@ class DialogPresenter: MvpPresenter<ContractDialogView>(), ContractDialogPresent
 
     private var userId: Int = 0
     private var peerId: Int = 0
+
     private lateinit var config: PagedList.Config
     private lateinit var sourceFactory: DialogDataSourceFactory
+
+    private lateinit var adapter: DialogAdapter
+
+    private var newData: List<ItemsItem> = emptyList()
 
 
     override fun viewIsReady(intent: Intent) {
         getParcelableData(intent.extras!!)
         buildPagedListAdapter()
-        viewState.showEditField(messageDataParser())
+        viewState.showEditField()
         val pair = buildPagedListAdapter()
         viewState.showDialog(pair.first, pair.second)
     }
@@ -45,19 +49,31 @@ class DialogPresenter: MvpPresenter<ContractDialogView>(), ContractDialogPresent
         config = DialogPageConfig.get()
         sourceFactory = DialogDataSourceFactory(userId, peerId)
         val pagedListLiveData = LivePagedListBuilder(sourceFactory, config).build()
-        val callback = DialogDiffUtilCallback(sourceFactory.mOldData, sourceFactory.mNewData)
-        val adapter = DialogAdapter(context, callback)
+        val callback = DialogDiffUtilCallback(sourceFactory.getData(), newDataInit(sourceFactory.getData()))
+        adapter = DialogAdapter(context, callback)
         return pagedListLiveData to adapter
     }
 
-    private fun messageDataParser(): Message {
-        return Message(userId = userId, peerId = peerId)
+    private fun newDataInit(oldData: List<ItemsItem>): List<ItemsItem> {
+        return if (newData.isEmpty()) oldData else newData
     }
 
-    override fun dataMaybeUpdate(id: Int) {
-        if(id!=0){
-            sourceFactory.invalidate()
-        }
+    override fun messageIsSending(message: Message) {
+        val items = ItemsItem(
+                fromId = userId,
+                peerId = peerId,
+                text = message.text,
+                randomId = message.randomId
+        )
+        val messages = sourceFactory.getData() as ArrayList
+        messages.add(0, items)
+        newData = messages.toList()
+        adapter.notifyItemChanged(0)
+
+    }
+
+    override fun messageIsSent(request: ResponseMsgSend) {
+        sourceFactory.invalidate()
     }
 
     override fun viewIsPaused(){}
