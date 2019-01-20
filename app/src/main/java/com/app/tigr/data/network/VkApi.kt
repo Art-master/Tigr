@@ -39,7 +39,7 @@ interface VkApi{
 /*                    @Query("domain") domain: String,
                     @Query("chat_id") chatId: Int,
                     @Query("user_ids") userIds: String,*/
-                    @Query("text") message: String,
+                    @Query("message") message: String,
 /*                    @Query("lat") lat: Float,
                     @Query("long") long: Float,
                     @Query("attachment") attachment: String,

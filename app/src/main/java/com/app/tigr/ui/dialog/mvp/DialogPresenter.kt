@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.app.tigr.App
 import com.app.tigr.common.Constants
+import com.app.tigr.data.network.ApiProvider
 import com.app.tigr.domain.response.ResponseMsgSend
 import com.app.tigr.domain.response.dialog.ItemsItem
 import com.app.tigr.domain.send.Message
@@ -15,11 +16,17 @@ import com.app.tigr.ui.dialog.impl.ContractDialogView
 import com.app.tigr.ui.dialog.list.*
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
 class DialogPresenter: MvpPresenter<ContractDialogView>(), ContractDialogPresenter {
 
     private val context = App.appComponent.getContext()
+
+    private val dispose = CompositeDisposable()
 
     private var userId: Int = 0
     private var peerId: Int = 0
@@ -59,21 +66,46 @@ class DialogPresenter: MvpPresenter<ContractDialogView>(), ContractDialogPresent
     }
 
     override fun messageIsSending(message: Message) {
-        val items = ItemsItem(
-                fromId = userId,
+        val sendMessage = prepareMessage(message)
+        val messages = sourceFactory.getData() as ArrayList
+        messages.add(0, createItem(sendMessage))
+        dialogUpdate(messages)
+        messageSend(sendMessage)
+    }
+
+    private fun prepareMessage(message: Message): Message {
+        return Message(
+                text = message.text,
+                peerId = userId,
+                userId = peerId
+        )
+    }
+
+    private fun dialogUpdate(messages: ArrayList<ItemsItem>) {
+        newData = messages.toList()
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun createItem(message: Message): ItemsItem {
+        return ItemsItem(fromId = userId,
                 peerId = peerId,
                 text = message.text,
                 randomId = message.randomId
         )
-        val messages = sourceFactory.getData() as ArrayList
-        messages.add(0, items)
-        newData = messages.toList()
-        adapter.notifyItemChanged(0)
-
     }
 
-    override fun messageIsSent(request: ResponseMsgSend) {
-        sourceFactory.invalidate()
+    private fun messageSend(msg: Message) {
+        val request = ApiProvider().sendMessage(message = msg)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                        onSuccess = { it -> it.response.toString() },
+                        onError = { it.printStackTrace() })
+        dispose.add(request)
+    }
+
+    override fun viewIsDestroyed() {
+        dispose.clear()
     }
 
     override fun viewIsPaused(){}

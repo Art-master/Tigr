@@ -42,7 +42,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="SEND" />
+                    android:text="@string/message_button_send" />
             </android.support.v7.widget.LinearLayoutCompat>
         </android.support.v7.widget.CardView>
     </android.support.v7.widget.LinearLayoutCompat>

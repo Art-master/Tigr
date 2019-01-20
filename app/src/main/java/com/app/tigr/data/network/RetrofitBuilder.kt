@@ -35,7 +35,7 @@ class RetrofitBuilder: AppNetwork {
                 .readTimeout(readTimeout.first, readTimeout.second)
                 .connectTimeout(connectTimeout.first, connectTimeout.second)
                 .addInterceptor(Interceptors.OfflineCacheInterceptor())
-                .addNetworkInterceptor(Interceptors.NetworkCacheInterceptor())
+                //.addNetworkInterceptor(Interceptors.NetworkCacheInterceptor())
                 .cache(Interceptors.provideCache())
 
         if (BuildConfig.DEBUG_MODE) {

@@ -14,6 +14,5 @@ interface ContractDialogView: MvpView {
                    adapter: PagedListAdapter<ItemsItem, DialogAdapter.DialogViewHolder>)
 
     fun showEditField()
-    fun updateDialog(pagedListLiveData: LiveData<PagedList<ItemsItem>>,
-                     adapter: PagedListAdapter<ItemsItem, DialogAdapter.DialogViewHolder>)
+    fun messageIsSent()
 }

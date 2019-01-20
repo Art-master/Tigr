@@ -51,11 +51,11 @@ class DialogActivity: MvpAppCompatActivity(), ContractDialogView {
         recyclerDialog.adapter = adapter
     }
 
-    override fun updateDialog(pagedListLiveData: LiveData<PagedList<ItemsItem>>,
-                              adapter: PagedListAdapter<ItemsItem, DialogAdapter.DialogViewHolder>) {
+    override fun showEditField() {
+
     }
 
-    override fun showEditField() {
+    override fun messageIsSent() {
 
     }
 

@@ -8,6 +8,6 @@ interface ContractDialogPresenter {
     fun viewIsReady(intent: Intent)
     fun viewIsPaused()
     fun viewIsResumed()
+    fun viewIsDestroyed()
     fun messageIsSending(message: Message)
-    fun messageIsSent(request: ResponseMsgSend)
 }

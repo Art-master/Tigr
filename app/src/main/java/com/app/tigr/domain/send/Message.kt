@@ -31,7 +31,7 @@ data class Message(
         /** IDs of text recipients (if necessary, send a text to several users at once).
          *  Only available for community access key. (max ids is 100) */
         @field:SerializedName("user_ids")
-        val userIds: List<Int?> = emptyList(),
+        val userIds: List<Int?>? = null,
 
         /** text of message */
         @field:SerializedName("text")

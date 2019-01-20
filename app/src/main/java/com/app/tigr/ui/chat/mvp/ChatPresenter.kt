@@ -45,7 +45,7 @@ class ChatPresenter : MvpPresenter<ContractChatView>(), ContractChatPresenter {
 
     private fun repeatRequest(token: String) {
         val request = connection.getMessages(token)
-                .delay(3, TimeUnit.SECONDS, Schedulers.io())
+                .delay(1, TimeUnit.SECONDS, Schedulers.io())
                 .repeat()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(AndroidSchedulers.mainThread())

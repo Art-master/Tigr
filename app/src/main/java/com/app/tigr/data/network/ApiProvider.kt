@@ -31,13 +31,13 @@ class ApiProvider {
 
     fun sendMessage(message: Message): Single<ResponseMsgSend> {
         return appNetwork!!.sendMessage(
-                message.userId!!,
-                message.randomId!!,
-                message.peerId!!,
+                userId = message.userId!!,
+                randomId = message.randomId,
+                peerId = message.peerId!!,
 /*                text.domain ?: "",
                 text.chatId ?: 0,
                 text.userIds.toString(),*/
-                message.text!!,
+                message = message.text,
 /*                text.latitude ?: 0F,
                 text.longitude ?: 0F,
                 text.attachments ?: "",
@@ -48,10 +48,10 @@ class ApiProvider {
                 "",//text.keyboard.to!!,
                 text.payload ?: 0,
                 text.dontParseLinks ?: 0,*/
-                appLanguage,
-                Constants.Network.TEST_MODE,
-                userToken!!,
-                Constants.Network.VERSION_API
+                lang = appLanguage,
+                testMode = Constants.Network.TEST_MODE,
+                token = userToken!!,
+                versionApi = Constants.Network.VERSION_API
         )
     }
 
