@@ -3,6 +3,9 @@
     android:id="@+id/activityDialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTintMode="src_atop"
+    android:backgroundTint="@color/colorBlackAlpha"
+    android:background="@color/colorBlackAlpha"
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView

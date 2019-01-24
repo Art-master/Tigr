@@ -1,6 +1,8 @@
 package com.app.tigr.domain.response.dialog
 
 import android.os.Parcelable
+import com.app.tigr.domain.response.common.ProfilesItem
+import com.app.tigr.domain.response.message.Attachment
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -9,56 +11,46 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ItemsItem(
 
-        @field:SerializedName("date")
-        val date: Int = 0,
+		@field:SerializedName("date")
+		var date: Int = 0,
 
-        @field:SerializedName("important")
+		@field:SerializedName("important")
         val important: Boolean = false,
 
-        @field:SerializedName("from_id")
-        val fromId: Int = 0,
+		@field:SerializedName("from_id")
+		var fromId: Int = 0,
 
-        @field:SerializedName("attachments")
-        val attachments: List<AttachmentsItem> = emptyList(),
+		@field:SerializedName("attachments")
+		val attachments: List<Attachment> = emptyList(),
 
-        @field:SerializedName("is_hidden")
+		@field:SerializedName("is_hidden")
 	val isHidden: Boolean? = null,
 
-        @field:SerializedName("fwd_messages")
+		@field:SerializedName("fwd_messages")
         val fwdMessages: List<FwdMessagesItem> = emptyList(),
 
-        @field:SerializedName("id")
+		@field:SerializedName("id")
         val id: Int = 0,
 
-        @field:SerializedName("text")
-        val text: String = "",
+		@field:SerializedName("text")
+		var text: String = "",
 
-        @field:SerializedName("random_id")
-        val randomId: Int = 0,
+		@field:SerializedName("random_id")
+		var randomId: Int = 0,
 
-        @field:SerializedName("out")
+		@field:SerializedName("out")
         val out: Int = 0,
 
-        @field:SerializedName("peer_id")
-        val peerId: Int = 0,
+		@field:SerializedName("peer_id")
+		var peerId: Int = 0,
 
-        @field:SerializedName("conversation_message_id")
+		@field:SerializedName("conversation_message_id")
         val conversationMessageId: Int = 0,
 
-        @field:SerializedName("update_time")
-        val updateTime: Int = 0
-) : Parcelable {
-	enum class Type(str:String){
-		PHOTO("photo"),
-		VIDEO("video"),
-		AUDIO("audio"),
-		DOC("doc"),
-		LINK("link"),
-		MARKET("market"),
-		MARKET_ALBUM("market_album"),
-		WALL("wall"),
-		WALL_REPLY("wall_reply"),
-		STICKER("sticker"),
-		GIFT("gift")
-	}
-}
+		@field:SerializedName("update_time")
+		val updateTime: Int = 0,
+
+		//doubled
+		var profiles: List<ProfilesItem> = emptyList(),
+		var conversations: List<ConversationsItem> = emptyList()
+) : Parcelable

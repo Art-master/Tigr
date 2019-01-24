@@ -13,10 +13,10 @@ import javax.annotation.Generated
 data class Attachment(
 
         @field:SerializedName("type")
-        val type: String? = null,
+        val type: String = "",
 
         @field:SerializedName("photo")
-        val photo: Photo? = null,
+        val photo: Photo = Photo(),
 
         @field:SerializedName("video")
         val video: Video? = null,
@@ -43,9 +43,23 @@ data class Attachment(
         val wallReply: wallReply? = null,*/
 
         @field:SerializedName("sticker")
-        val sticker: Sticker? = null
+        val sticker: Sticker = Sticker()
 
 /*        @field:SerializedName("gift")
         val gift: Gift? = null*/
 
-) : Parcelable
+) : Parcelable {
+    enum class Type(val value: String) {
+        PHOTO("photo"),
+        VIDEO("video"),
+        AUDIO("audio"),
+        DOC("doc"),
+        LINK("link"),
+        MARKET("market"),
+        MARKET_ALBUM("market_album"),
+        WALL("wall"),
+        WALL_REPLY("wall_reply"),
+        STICKER("sticker"),
+        GIFT("gift")
+    }
+}

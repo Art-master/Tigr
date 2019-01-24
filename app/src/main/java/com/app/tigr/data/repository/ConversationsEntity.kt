@@ -10,6 +10,6 @@ data class ConversationsEntity(
         @PrimaryKey(autoGenerate = true)
         val id: Int,
 
-        @ColumnInfo(name = "data")
+        @ColumnInfo(name = "dataRequest")
         val parsedData: String
 )

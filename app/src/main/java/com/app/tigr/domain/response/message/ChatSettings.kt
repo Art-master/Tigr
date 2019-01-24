@@ -21,7 +21,7 @@ data class ChatSettings(
         /** status of user:
          * in — is chatting;
          * kicked — excluded from chat;
-         * left — left чат */
+         * isAvatar — isAvatar чат */
         @field:SerializedName("state")
         val state: String? = null,
 

@@ -10,12 +10,12 @@ import javax.annotation.Generated
 data class ImageSticker(
 
         @field:SerializedName("url")
-        val url: String? = null,
+        val url: String = "",
 
         @field:SerializedName("width")
-        val width: Int? = null,
+        val width: Int = 0,
 
         @field:SerializedName("height")
-        val height: Int? = null
+        val height: Int = 0
 
 ) : Parcelable

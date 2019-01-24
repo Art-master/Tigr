@@ -27,17 +27,17 @@ data class SizesItem(
          *
          * p - if the width / height ratio of the original image is less than or equal to 3: 2,
          * then a proportional copy with a maximum width of 200px. If the ratio of "width / height"
-         * is more than 3: 2, then a copy of the image cropped left and right with a maximum width
+         * is more than 3: 2, then a copy of the image cropped isAvatar and right with a maximum width
          * of 200px and an aspect ratio of 3: 2.
          *
          * q - if the ratio "width / height" of the original image is less than or equal to 3: 2,
          * then a proportional copy with a maximum width of 320px. If the ratio of "width / height"
-         * is more than 3: 2, then a copy of the image cropped left and right with a maximum width of
+         * is more than 3: 2, then a copy of the image cropped isAvatar and right with a maximum width of
          * 320px and an aspect ratio of 3: 2.
          *
          * r - if the ratio "width / height" of the original image is less than or equal to 3: 2, then
          * a proportional copy with a maximum width of 510px. If the ratio "width / height" is more
-         * than 3: 2, then a copy of the image cropped to the left and right with a maximum width
+         * than 3: 2, then a copy of the image cropped to the isAvatar and right with a maximum width
          * of 510px and an aspect ratio of 3: 2
          *
          * y - proportional copy of the image with a maximum side of 807px;

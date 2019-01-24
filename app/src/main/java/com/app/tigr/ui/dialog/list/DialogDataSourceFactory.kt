@@ -15,5 +15,5 @@ class DialogDataSourceFactory(userId: Int, peerId: Int) : DataSource.Factory<Int
         dataSource.invalidate()
     }
 
-    fun getData() = dataSource.oldData
+    fun getData() = dataSource.dataRequest
 }

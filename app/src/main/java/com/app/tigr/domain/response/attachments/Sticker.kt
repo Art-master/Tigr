@@ -12,16 +12,16 @@ data class Sticker(
 
         /** set identifier */
         @field:SerializedName("product_id")
-        val productId: Int? = null,
+        val productId: Int = 0,
 
         @field:SerializedName("sticker_id")
-        val stickerId: Int? = null,
+        val stickerId: Int = 0,
 
         @field:SerializedName("images")
-        val images: List<ImageSticker?>? = null,
+        val images: List<ImageSticker> = emptyList(),
 
         @field:SerializedName("images_with_background")
-        val imagesWithBackground: List<ImageSticker?>? = null
+        val imagesWithBackground: List<ImageSticker> = emptyList()
 
 ) : Parcelable
 

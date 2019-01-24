@@ -14,7 +14,6 @@ import com.app.tigr.ui.dialog.list.DialogAdapter
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import kotlinx.android.synthetic.main.activity_dialog.*
-
 class DialogActivity: MvpAppCompatActivity(), ContractDialogView {
 
     @InjectPresenter
@@ -41,7 +40,6 @@ class DialogActivity: MvpAppCompatActivity(), ContractDialogView {
             val message = Message(text = text)
             presenter.messageIsSending(message)
         }
-
     }
 
     override fun showDialog(pagedListLiveData: LiveData<PagedList<ItemsItem>>,

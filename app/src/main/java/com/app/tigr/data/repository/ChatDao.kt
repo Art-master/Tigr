@@ -6,6 +6,6 @@ import android.arch.persistence.room.Query
 @Dao
 interface ChatDao {
 
-    @Query(value = "SELECT data FROM conversations")
+    @Query(value = "SELECT dataRequest FROM conversations")
     fun getConversationsData(): String
 }

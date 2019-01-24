@@ -3,4 +3,7 @@
     <integer name="com_vk_sdk_AppId">6786161</integer>
 
     <string name="message_button_send" translatable="false">></string>
+
+    <string name="user_avatar_desc" translatable="false">avatar</string>
+    <string name="user_sticker_desc" translatable="false">sticker</string>
 </resources>
