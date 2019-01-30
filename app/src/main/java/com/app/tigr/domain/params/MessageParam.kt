@@ -1,4 +1,4 @@
-package com.app.tigr.domain.send
+package com.app.tigr.domain.params
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
-data class Message(
+data class MessageParam(
 
         /** User ID to which the text is sent */
         @field:SerializedName("user_id")

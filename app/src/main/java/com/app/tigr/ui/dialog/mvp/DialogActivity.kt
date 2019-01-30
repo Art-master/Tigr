@@ -6,9 +6,11 @@ import android.arch.paging.PagedList
 import android.arch.paging.PagedListAdapter
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.app.tigr.R
 import com.app.tigr.domain.response.dialog.ItemsItem
-import com.app.tigr.domain.send.Message
+import com.app.tigr.domain.params.MessageParam
 import com.app.tigr.ui.dialog.impl.ContractDialogView
 import com.app.tigr.ui.dialog.list.DialogAdapter
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -19,26 +21,26 @@ class DialogActivity: MvpAppCompatActivity(), ContractDialogView {
     @InjectPresenter
     lateinit var presenter: DialogPresenter
 
-    private lateinit var linearLayoutManager: LinearLayoutManager
+    private val linearLayoutManager = LinearLayoutManager(this)
+            .apply { reverseLayout = true }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dialog)
 
-        linearLayoutManager = LinearLayoutManager(this)
-        linearLayoutManager.reverseLayout = true
         recyclerDialog!!.layoutManager = linearLayoutManager
 
         presenter.attachView(this)
-        if(savedInstanceState==null){
-            presenter.viewIsReady(intent)
-        }
+
+        if (savedInstanceState == null) presenter.viewIsReady(intent)
 
         sendMessageButton.setOnClickListener { _ ->
             val text = editTextSendMessage.text.toString()
-            editTextSendMessage.text!!.clear()
-            val message = Message(text = text)
-            presenter.messageIsSending(message)
+            if (text.isEmpty().not()) {
+                editTextSendMessage.text!!.clear()
+                val message = MessageParam(text = text)
+                presenter.messageIsSending(message)
+            }
         }
     }
 
@@ -47,18 +49,25 @@ class DialogActivity: MvpAppCompatActivity(), ContractDialogView {
 
         pagedListLiveData.observe(this, Observer { data-> adapter.submitList(data) })
         recyclerDialog.adapter = adapter
+        recyclerDialog.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                senderContainer.apply {
+                    if (dy < 0 && visibility == View.VISIBLE) {
+                        visibility = View.GONE
+                    } else if (dy > 0 && visibility != View.VISIBLE) {
+                        visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
     }
 
-    override fun showEditField() {
+    override fun showEditField() {}
 
-    }
-
-    override fun messageIsSent() {
-
-    }
+    override fun messageIsSent() {}
 
     override fun onStop() {
         super.onStop()
-        recyclerDialog.adapter = null
     }
 }

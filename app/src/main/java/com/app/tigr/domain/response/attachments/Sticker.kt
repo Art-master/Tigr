@@ -21,7 +21,10 @@ data class Sticker(
         val images: List<ImageSticker> = emptyList(),
 
         @field:SerializedName("images_with_background")
-        val imagesWithBackground: List<ImageSticker> = emptyList()
+        val imagesWithBackground: List<ImageSticker> = emptyList(),
+
+        @field:SerializedName("animation_url")
+        val animationUrl: String = ""
 
 ) : Parcelable
 

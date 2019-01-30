@@ -11,8 +11,8 @@ import kotlinx.android.parcel.Parcelize
 data class ItemsItem(
 
         @field:SerializedName("last_message")
-        val lastMessage: LastMessage? = null,
+        val lastMessage: LastMessage = LastMessage(),
 
         @field:SerializedName("conversation")
-        val conversation: Conversation? = null
+        val conversation: Conversation = Conversation()
 ) : Parcelable

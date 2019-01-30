@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Generated("com.robohorse.robopojogenerator")
 @Parcelize
-data class ResponseDialog(
+data class DialogRsp(
 
 	@field:SerializedName("response")
     val response: Dialogs = Dialogs()

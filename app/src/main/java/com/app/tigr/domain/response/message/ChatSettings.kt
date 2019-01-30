@@ -10,30 +10,30 @@ import javax.annotation.Generated
 data class ChatSettings(
 
         @field:SerializedName("members_count")
-        val membersCount: Int? = null,
+        val membersCount: Int = 0,
 
         @field:SerializedName("title")
-        val title: String? = null,
+        val title: String = "",
 
         @field:SerializedName("pinned_message")
-        val pinnedMessage: PinnedMessage? = null,
+        val pinnedMessage: PinnedMessage = PinnedMessage(),
 
         /** status of user:
          * in — is chatting;
          * kicked — excluded from chat;
          * isAvatar — isAvatar чат */
         @field:SerializedName("state")
-        val state: String? = null,
+        val state: String = "",
 
         /** image cover chat */
         @field:SerializedName("photo")
-        val photo: Photo? = null,
+        val photo: Photo = Photo(),
 
         /** IDs of the last users what wrote to chat */
         @field:SerializedName("active_ids")
-        val activeIds: List<Int>? = null,
+        val activeIds: List<Int> = emptyList(),
 
         /** whether the conversation is a community channel */
         @field:SerializedName("is_group_channel")
-        val isGroupChannel: Boolean? = null
+        val isGroupChannel: Boolean = false
 ) : Parcelable

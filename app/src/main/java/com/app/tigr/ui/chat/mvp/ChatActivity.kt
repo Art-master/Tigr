@@ -1,7 +1,9 @@
 package com.app.tigr.ui.chat.mvp
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import androidx.navigation.R.attr.data
 import com.app.tigr.ui.chat.ChatAdapter
 import com.app.tigr.ui.chat.impl.ContractChatView
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -30,8 +32,13 @@ class ChatActivity: MvpAppCompatActivity(), ContractChatView {
         }
     }
 
-    override fun showChat(data: Conversations?){
-        recyclerMessages.adapter = ChatAdapter(data, applicationContext)
+    override fun showChat(adapter: ChatAdapter) {
+        recyclerMessages.adapter = adapter
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        presenter.dataChanged()
     }
 
     override fun onResume() {

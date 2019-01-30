@@ -8,8 +8,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Generated("com.robohorse.robopojogenerator")
 @Parcelize
-data class ConversationsResponse(
+data class ConversationsRsp(
 
 	@field:SerializedName("response")
-	val response: Conversations? = null
+    val response: Conversations = Conversations()
 ) : Parcelable

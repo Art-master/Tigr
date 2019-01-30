@@ -7,7 +7,7 @@ import javax.annotation.Generated
 
 @Generated("com.robohorse.robopojogenerator")
 @Parcelize
-data class MsgUsersResponse(
+data class MsgUsersRsp(
         @field:SerializedName("peer_id")
         val peerId: Int? = null,
 

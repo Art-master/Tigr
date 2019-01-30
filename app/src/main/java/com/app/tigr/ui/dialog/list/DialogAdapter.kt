@@ -7,17 +7,23 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.app.tigr.R
 import com.app.tigr.common.TUtils
 import com.app.tigr.data.transformations.CircularTransformation
 import com.app.tigr.domain.response.common.ProfilesItem
 import com.app.tigr.domain.response.dialog.ItemsItem
 import com.app.tigr.domain.response.message.Attachment
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.dialog_item.view.*
 import org.jetbrains.anko.image
+import org.jetbrains.anko.padding
 import java.text.SimpleDateFormat
 import java.util.*
+import android.R.raw
+
+
 
 class DialogAdapter(val context: Context, val peerId: Int, itemCallback: DialogDiffUtilCallback)
     : PagedListAdapter<ItemsItem, DialogAdapter.DialogViewHolder>(itemCallback) {
@@ -36,10 +42,10 @@ class DialogAdapter(val context: Context, val peerId: Int, itemCallback: DialogD
         fun bind(items: ItemsItem) {
 
             val userId = items.fromId
-            val userItem = getUserById(items.profiles, userId)
+            val userItem = getUserById(items.profiles, userId)!!
 
             chooseSideForMessage(items.fromId)
-            loadAvatar(userItem!!)
+            loadAvatar(userItem)
             setTextMessage(items)
             prepareAttachments(items)
             setDate(items.date)
@@ -50,10 +56,10 @@ class DialogAdapter(val context: Context, val peerId: Int, itemCallback: DialogD
         private fun chooseSideForMessage(fromId: Int) {
             if (isPeerUser(fromId)) {
                 reflectContainer(-1F)
-                view.messageDialog.gravity = Gravity.END
+                view.messageDialog.gravity = Gravity.START
             } else {
                 reflectContainer(1F)
-                view.messageDialog.gravity = Gravity.START
+                view.messageDialog.gravity = Gravity.END
             }
         }
 
@@ -86,31 +92,47 @@ class DialogAdapter(val context: Context, val peerId: Int, itemCallback: DialogD
 
         private fun prepareAttachments(data: ItemsItem) {
             clearStickerContainer()
+            view.photoContainer.removeAllViews()
             for (element in data.attachments) {
                 when (element.type) {
-                    Attachment.Type.PHOTO.value -> element.photo.accessKey
+                    Attachment.Type.PHOTO.value -> {
+                        val key = element.photo.accessKey
+                        val image = ImageView(context)
+                        image.padding = 2
+                        //image.layoutParams.width = element.photo.sizes[0].width
+                        //image.layoutParams.height = element.photo.sizes[0].height
+                        Picasso.with(context)
+                                .load(element.photo.sizes[2].url)
+                                .into(image)
+                        view.photoContainer.addView(image)
+                        //loadPhotos(element.photo)
+                    }
 
                     Attachment.Type.STICKER.value -> {
                         val url = element.sticker.images[2].url
-                        loadSticker(url, 120, 120)
+                        loadSticker(url)
                     }
                 }
             }
         }
 
         private fun clearStickerContainer() {
-            view.sticker.image = null
-            view.sticker.layoutParams.width = 0
-            view.sticker.layoutParams.height = 0
+            view.sticker.apply {
+                image = null
+                layoutParams.width = 0
+                layoutParams.height = 0
+            }
         }
 
-        private fun loadSticker(link: String, heightPx: Int, widthPx: Int) {
+        private fun loadSticker(link: String, heightPx: Int = 120, widthPx: Int = 120) {
             val height = TUtils.convertDpToPx(heightPx.toFloat())
             val width = TUtils.convertDpToPx(widthPx.toFloat())
-            view.sticker.layoutParams.height = height
-            view.sticker.layoutParams.width = width
-            view.sticker.setImageDrawable(null)
-            Picasso.with(context)
+            view.sticker.apply {
+                layoutParams.height = height
+                layoutParams.width = width
+                setImageDrawable(null)
+            }
+            Glide.with(context)
                     .load(link)
                     .into(view.sticker)
         }
@@ -122,6 +144,10 @@ class DialogAdapter(val context: Context, val peerId: Int, itemCallback: DialogD
                 val timePattern = SimpleDateFormat("d MMM HH:mm", Locale.getDefault())
                 view.messageTime.text = timePattern.format((dataInUnixtime * 1000L))
             }
+        }
+
+        private fun loadPhotos() {
+
         }
     }
 }

@@ -3,34 +3,51 @@ package com.app.tigr.data.network
 import com.app.tigr.App
 import com.app.tigr.common.Constants
 import com.app.tigr.common.Settings
-import com.app.tigr.domain.send.Message
-import com.app.tigr.domain.response.ResponseDialog
-import com.app.tigr.domain.response.ConversationsResponse
-import com.app.tigr.domain.response.ResponseMsgSend
+import com.app.tigr.domain.params.MessageParam
+import com.app.tigr.domain.params.ConversationsParam
+import com.app.tigr.domain.params.InitLongPollServerPrm
+import com.app.tigr.domain.params.LongPollServerPrm
+import com.app.tigr.domain.response.*
 import io.reactivex.Single
 
 class ApiProvider {
 
-    var appNetwork: VkApi? = App.appComponent.getNetworkConnection().connect()
+    var appNetwork: VkApi = App.appComponent.getNetworkConnection().connect()!!
 
-    private val userToken = App.appComponent.getPreferences().get(Settings.Name.USER_TOKEN)
+    private val userToken = App.appComponent.getPreferences().get(Settings.Name.USER_TOKEN)!!
 
     private val appLanguage = Constants.APP_LANGUAGE
+    private val testMode = Constants.Network.TEST_MODE
+    private val versionApi = Constants.Network.VERSION_API
 
-    fun getMessages(token: String): Single<ConversationsResponse> {
-       return appNetwork!!.getConversations(
-               0,20,"all",1, 0,1,
-               token, Constants.Network.VERSION_API)
+    fun getMessages(params: ConversationsParam): Single<ConversationsRsp> {
+        return appNetwork.getConversations(
+                offset = params.offset,
+                count = params.count,
+                filter = params.filter,
+                extended = params.extended,
+                lang = appLanguage,
+                testMode = testMode,
+                token = userToken,
+                versionApi = versionApi)
     }
 
-    fun getDialog(startPosition: Int, loadSize: Int, userId: Int, peerId: Int): Single<ResponseDialog> {
-        return appNetwork!!.getDialog(startPosition,loadSize, userId, peerId, 0,
-                1, 0,1,
-                userToken!!, Constants.Network.VERSION_API)
+    fun getDialog(startPosition: Int, loadSize: Int, userId: Int, peerId: Int): Single<DialogRsp> {
+        return appNetwork.getDialog(
+                offset = startPosition,
+                count = loadSize,
+                userId = userId,
+                peerId = peerId,
+                rev = 0,
+                extended = 1,
+                lang = appLanguage,
+                testMode = testMode,
+                token = userToken,
+                versionApi = versionApi)
     }
 
-    fun sendMessage(message: Message): Single<ResponseMsgSend> {
-        return appNetwork!!.sendMessage(
+    fun sendMessage(message: MessageParam): Single<MsgSendRsp> {
+        return appNetwork.sendMessage(
                 userId = message.userId!!,
                 randomId = message.randomId,
                 peerId = message.peerId!!,
@@ -49,10 +66,27 @@ class ApiProvider {
                 text.payload ?: 0,
                 text.dontParseLinks ?: 0,*/
                 lang = appLanguage,
-                testMode = Constants.Network.TEST_MODE,
-                token = userToken!!,
-                versionApi = Constants.Network.VERSION_API
-        )
+                testMode = testMode,
+                token = userToken,
+                versionApi = versionApi)
     }
 
+    fun getLongPoolServer(data: LongPollServerPrm): Single<LongPollServerRsp> {
+        return appNetwork.getLongPoolServer(
+                needPts = data.needPts,
+                groupId = data.groupId,
+                lpVersion = data.lpVersion,
+                lang = appLanguage,
+                testMode = testMode,
+                token = userToken,
+                versionApi = versionApi)
+    }
+
+    fun initLongPoolServer(data: InitLongPollServerPrm): Single<InitLongPollServerRsp> {
+        // https://{$server}?act=a_check&key={$key}&ts={$ts}&wait=25&mode=2&version=2
+        val request = data.run {
+            "https://$server?act=a_check&key=$key&ts=$ts&wait=$wait&mode=$mode&version=$version"
+        }
+        return appNetwork.initLongPoolServer(request)
+    }
 }

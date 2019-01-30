@@ -10,25 +10,25 @@ import kotlinx.android.parcel.Parcelize
 data class PinnedMessage(
 
         @field:SerializedName("id")
-        val id: Int? = null,
+        val id: Int = 0,
 
         @field:SerializedName("date")
-        val date: Int? = null,
+        val date: Int = 0,
 
         @field:SerializedName("from_id")
-        val fromId: Int? = null,
+        val fromId: Int = 0,
 
         @field:SerializedName("text")
-        val text: String? = null,
+        val text: String = "",
 
         @field:SerializedName("attachments")
-        val attachments: String? = null,
+        val attachments: String = "",
 
         /** location information */
         @field:SerializedName("geo")
-        val geo: Geo? = null,
+        val geo: Geo = Geo(),
 
         @field:SerializedName("fwd_messages")
-        val fwdMessages: List<LastMessage?>? = null
+        val fwdMessages: List<LastMessage> = emptyList()
 
 ) : Parcelable

@@ -13,8 +13,7 @@ class Constants {
         USER_ID("com.app.tigr.user.id"),
         PEER_ID("com.app.tigr.peer.id"),
         MESSAGE("com.app.tigr.text"),
-        MESSAGE_SENT("com.app.tigr.text.sent"),
-        MESSAGE_SENDING("com.app.tigr.text.sending")
+        NEW_MESSAGE("com.app.tigr.message.new")
     }
 
 
@@ -22,7 +21,8 @@ class Constants {
         companion object {
             const val BASE_URL = "https://api.vk.com/"
             const val VERSION_API = "5.92"
-            const val TEST_MODE = 1
+            const val TEST_MODE = 1 // 1 - yes
+            const val LONG_POLL_VERSION = 3
         }
     }
 }

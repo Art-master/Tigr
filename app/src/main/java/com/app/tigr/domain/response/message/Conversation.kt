@@ -14,37 +14,37 @@ data class Conversation(
 
         /** information about the interlocutor */
         @field:SerializedName("peer")
-        val peer: Peer? = null,
+        val peer: Peer = Peer(),
 
         /** ID of the last read incoming text */
         @field:SerializedName("in_read")
-        val inRead: Int? = null,
+        val inRead: Int = 0,
 
         /** ID of the last read outgoing text */
         @field:SerializedName("out_read")
-        val outRead: Int? = null,
+        val outRead: Int = 0,
 
         /** number of unread messages */
         @field:SerializedName("unread_count")
-        val unreadCount: Int? = null,
+        val unreadCount: Int = 0,
 
         /** true, if the dialog is marked as important */
         @field:SerializedName("important")
-        val important: Boolean? = null,
+        val important: Boolean = false,
 
         /** true, if the dialog is marked as unanswered */
         @field:SerializedName("unanswered")
-        val unanswered: Boolean? = null,
+        val unanswered: Boolean = false,
 
         /** push notification settings */
         @field:SerializedName("push_settings")
-        val pushSettings: PushSettings? = null,
+        val pushSettings: PushSettings = PushSettings(),
 
         /** whether the user can write to the dialogue */
         @field:SerializedName("can_write")
-        val canWrite: CanWrite? = null,
+        val canWrite: CanWrite = CanWrite(),
 
         @field:SerializedName("chat_settings ")
-        val chatSettings: ChatSettings? = null
+        val chatSettings: ChatSettings = ChatSettings()
 
 ) : Parcelable

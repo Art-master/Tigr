@@ -5,33 +5,37 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import javax.annotation.Generated
 
-/** description of place */
+/** description of place
+ *
+ * @see <a href=" https://vk.com/dev/objects/message">LastMessage in Vk API</a>
+ */
+
 @Generated("com.robohorse.robopojogenerator")
 @Parcelize
 data class Place(
 
         @field:SerializedName("id")
-        val id: Int? = null,
+        val id: Int = 0,
 
         @field:SerializedName("title")
-        val title: String? = null,
+        val title: String = "",
 
         @field:SerializedName("latitude")
-        val latitude: Float? = null,
+        val latitude: Float = 0F,
 
         @field:SerializedName("longitude")
-        val longitude: Float? = null,
+        val longitude: Float = 0F,
 
         /** date of creation */
         @field:SerializedName("created")
-        val created: Int? = null,
+        val created: Int = 0,
 
         @field:SerializedName("icon")
-        val urlIcon: String? = null,
+        val urlIcon: String = "",
 
         @field:SerializedName("country")
-        val country: String? = null,
+        val country: String = "",
 
         @field:SerializedName("city")
-        val city: String? = null
+        val city: String = ""
 ) : Parcelable

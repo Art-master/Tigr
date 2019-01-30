@@ -11,43 +11,43 @@ import kotlinx.android.parcel.Parcelize
 data class Photo(
 
         @field:SerializedName("id")
-        val id: Int? = null,
+        val id: Int = 0,
 
         /** ID of the album in which the photo is located */
         @field:SerializedName("album_id")
-        val albumId: Int? = null,
+        val albumId: Int = 0,
 
         /** photo owner ID */
         @field:SerializedName("owner_id")
-        val ownerId: Int? = null,
+        val ownerId: Int = 0,
 
         /** ID of the user who uploaded the photo (if the photo is posted in the community).
          *  For photos posted on behalf of the community, user_id = 100.
          *  */
         @field:SerializedName("user_id")
-        val userId: Int? = null,
+        val userId: Int = 0,
 
         /** description photo */
         @field:SerializedName("text")
-        val text: String? = null,
+        val text: String = "",
 
         /** date added in Unixtime  */
         @field:SerializedName("date")
-        val date: Int? = null,
+        val date: Int = 0,
 
         /** an array with copies of the image in different sizes */
         @field:SerializedName("sizes")
-        val sizes: List<SizesItem?>? = null,
+        val sizes: List<SizesItem> = emptyList(),
 
         /** description photo */
         @field:SerializedName("width")
-        val width: Int? = null,
+        val width: Int = 0,
 
         @field:SerializedName("height")
-        val height: String? = null,
+        val height: Int = 0,
 
         /** access key to content */
         @field:SerializedName("access_key")
-        val accessKey: String? = null
+        val accessKey: String = ""
 
 ) : Parcelable

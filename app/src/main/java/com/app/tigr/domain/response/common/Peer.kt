@@ -9,14 +9,14 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Peer(
 
-	@field:SerializedName("local_id")
-	val localId: Int? = null,
+        @field:SerializedName("local_id")
+        val localId: Int = 0,
 
-	@field:SerializedName("id")
-	val id: Int? = null,
+        @field:SerializedName("id")
+        val id: Int = 0,
 
-	@field:SerializedName("type")
-	val type: String? = null
+        @field:SerializedName("type")
+        val type: String = ""
 ) : Parcelable {
 	companion object {
 		const val USER = "user"

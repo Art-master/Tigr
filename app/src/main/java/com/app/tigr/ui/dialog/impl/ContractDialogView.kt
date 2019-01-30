@@ -1,11 +1,10 @@
 package com.app.tigr.ui.dialog.impl
 
 import android.arch.lifecycle.LiveData
-import android.arch.paging.LivePagedListBuilder
+import android.arch.lifecycle.Observer
 import android.arch.paging.PagedList
 import android.arch.paging.PagedListAdapter
 import com.app.tigr.domain.response.dialog.ItemsItem
-import com.app.tigr.domain.send.Message
 import com.app.tigr.ui.dialog.list.DialogAdapter
 import com.arellomobile.mvp.MvpView
 

@@ -14,11 +14,11 @@ data class CanWrite(
 
         /** true, if user can write into dialogue */
         @field:SerializedName("allowed")
-        val allowed: Boolean? = null,
+        val allowed: Boolean = false,
 
         /** if field [allowed] is false, then one of [Error] */
         @field:SerializedName("reason")
-        val reason: Int? = null
+        val reason: Int = 0
 
 ) : Parcelable {
     enum class Error constructor(code: Int) {

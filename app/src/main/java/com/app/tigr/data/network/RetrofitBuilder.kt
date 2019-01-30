@@ -1,6 +1,5 @@
 package com.app.tigr.data.network
 
-import android.util.Log
 import com.app.tigr.BuildConfig
 import com.app.tigr.common.Constants
 import com.app.tigr.impl.AppNetwork
@@ -18,8 +17,8 @@ class RetrofitBuilder: AppNetwork {
 
     private val LOG_TAG = "NetworkLog"
 
-    private val readTimeout = 10L to TimeUnit.SECONDS
-    private val connectTimeout = 5L to TimeUnit.SECONDS
+    private val readTimeout = 30L to TimeUnit.SECONDS
+    private val connectTimeout = 30L to TimeUnit.SECONDS
 
     init {
         connection = Retrofit.Builder()

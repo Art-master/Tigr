@@ -23,6 +23,16 @@
         <item name="contentPaddingTop">1dp</item>
         <item name="contentPaddingLeft">2dp</item>
         <item name="contentPaddingRight">2dp</item>
+        <item name="cardBackgroundColor">@android:color/transparent</item>
+    </style>
+
+    <style name="CardViewMessageStyle" parent="Theme.AppCompat.Light">
+        <item name="cardCornerRadius">2dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="contentPaddingBottom">1dp</item>
+        <item name="contentPaddingTop">1dp</item>
+        <item name="contentPaddingLeft">2dp</item>
+        <item name="contentPaddingRight">2dp</item>
         <item name="cardBackgroundColor">@color/colorGreen</item>
     </style>
 
@@ -34,5 +44,15 @@
         <item name="contentPaddingLeft">1dp</item>
         <item name="contentPaddingRight">1dp</item>
         <item name="cardBackgroundColor">@color/colorGreen</item>
+    </style>
+
+    <style name="CardItemUnreadMsgStyle" parent="Theme.AppCompat.Light">
+        <item name="cardCornerRadius">13dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="contentPaddingBottom">2dp</item>
+        <item name="contentPaddingTop">2dp</item>
+        <item name="contentPaddingLeft">2dp</item>
+        <item name="contentPaddingRight">2dp</item>
+        <item name="cardBackgroundColor">@color/colorOrange</item>
     </style>
 </resources>

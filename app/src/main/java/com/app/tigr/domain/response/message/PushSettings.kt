@@ -12,12 +12,12 @@ data class PushSettings(
 
         /** timestamp before which alerts are disabled */
         @field:SerializedName("disabled_until")
-        val disabledUntil: Int? = null,
+        val disabledUntil: Int = 0,
 
         @field:SerializedName("disabled_forever")
-        val disabledForever: Boolean? = null,
+        val disabledForever: Boolean = false,
 
         @field:SerializedName("no_sound")
-        val noSound: Boolean? = null
+        val noSound: Boolean = false
 
 ) : Parcelable

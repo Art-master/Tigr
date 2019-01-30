@@ -9,7 +9,7 @@ import com.app.tigr.App
 import com.app.tigr.common.Constants
 import com.app.tigr.data.network.ApiProvider
 import com.app.tigr.domain.response.dialog.ItemsItem
-import com.app.tigr.domain.send.Message
+import com.app.tigr.domain.params.MessageParam
 import com.app.tigr.ui.dialog.impl.ContractDialogPresenter
 import com.app.tigr.ui.dialog.impl.ContractDialogView
 import com.app.tigr.ui.dialog.list.*
@@ -34,7 +34,6 @@ class DialogPresenter: MvpPresenter<ContractDialogView>(), ContractDialogPresent
 
     private lateinit var adapter: DialogAdapter
 
-
     override fun viewIsReady(intent: Intent) {
         getParcelableData(intent.extras!!)
         buildPagedListAdapter()
@@ -54,16 +53,17 @@ class DialogPresenter: MvpPresenter<ContractDialogView>(), ContractDialogPresent
         val pagedListLiveData = LivePagedListBuilder(sourceFactory, config).build()
         val callback = DialogDiffUtilCallback()
         adapter = DialogAdapter(context, peerId, callback)
+        //adapter.submitList(pagedListLiveData.value)
         return pagedListLiveData to adapter
     }
 
-    override fun messageIsSending(message: Message) {
+    override fun messageIsSending(message: MessageParam) {
         val sendMessage = prepareMessage(message)
         addDataInList(sendMessage)
         messageSend(sendMessage)
     }
 
-    private fun addDataInList(msg: Message) {
+    private fun addDataInList(msg: MessageParam) {
         val firstPosition = 0
         val messages = sourceFactory.getData() as ArrayList<ItemsItem>
         val copyItem = messages[firstPosition].copy()
@@ -72,13 +72,13 @@ class DialogPresenter: MvpPresenter<ContractDialogView>(), ContractDialogPresent
         dialogUpdate()
     }
 
-    private fun prepareMessage(msg: Message): Message {
-        return Message(text = msg.text, peerId = userId, userId = peerId)
+    private fun prepareMessage(msg: MessageParam): MessageParam {
+        return MessageParam(text = msg.text, peerId = userId, userId = peerId)
     }
 
     private fun dialogUpdate() = adapter.notifyDataSetChanged()
 
-    private fun prepareItem(item: ItemsItem, msg: Message): ItemsItem {
+    private fun prepareItem(item: ItemsItem, msg: MessageParam): ItemsItem {
         item.fromId = userId
         item.peerId = peerId
         item.text = msg.text
@@ -87,7 +87,7 @@ class DialogPresenter: MvpPresenter<ContractDialogView>(), ContractDialogPresent
         return item
     }
 
-    private fun messageSend(msg: Message) {
+    private fun messageSend(msg: MessageParam) {
         val request = ApiProvider().sendMessage(message = msg)
                 .subscribeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())

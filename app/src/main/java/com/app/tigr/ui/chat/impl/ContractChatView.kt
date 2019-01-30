@@ -1,8 +1,8 @@
 package com.app.tigr.ui.chat.impl
 
-import com.app.tigr.domain.response.message.Conversations
 import com.arellomobile.mvp.MvpView
+import com.app.tigr.ui.chat.ChatAdapter
 
 interface ContractChatView : MvpView {
-    fun showChat(data: Conversations?)
+    fun showChat(adapter: ChatAdapter)
 }

@@ -13,7 +13,7 @@ import kotlinx.android.parcel.Parcelize
 data class SizesItem(
 
         @field:SerializedName("width")
-        val width: Int? = null,
+        val width: Int = 0,
 
         /** Designation of the size and proportions of the copy
          * Possible values of [type] field:
@@ -45,12 +45,24 @@ data class SizesItem(
          * w - proportional copy of the image with a maximum size of 2560x2048px.
          */
         @field:SerializedName("type")
-        val type: String? = null,
+        val type: String = "",
 
         @field:SerializedName("url")
-        val url: String? = null,
+        val url: String = "",
 
         @field:SerializedName("height")
-        val height: Int? = null
+        val height: Int = 0
 
-) : Parcelable
+) : Parcelable {
+    enum class Type(val value: String) {
+        S_75_PX("s"),
+        M_130_PX("m"),
+        X_604_PX("x"),
+        O("o"),
+        P("p"),
+        R("r"),
+        Y_807_PX("y"),
+        R_1080_PX("z"),
+        R_2560_PX("w")
+    }
+}

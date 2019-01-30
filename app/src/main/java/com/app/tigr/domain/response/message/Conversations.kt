@@ -13,21 +13,21 @@ data class Conversations(
 
         /** number of unread conversations */
         @field:SerializedName("unread_count")
-        val unreadCount: Int? = null,
+        val unreadCount: Int = 0,
 
         /** number of results */
         @field:SerializedName("count")
-        val count: Int? = null,
+        val count: Int = 0,
 
         /** array of user objects */
         @field:SerializedName("profiles")
-        val profiles: List<ProfilesItem?>? = null,
+        val profiles: List<ProfilesItem> = emptyList(),
 
         /** array of user groups */
         @field:SerializedName("groups")
-        val groups: List<GroupsItem?>? = null,
+        val groups: List<GroupsItem> = emptyList(),
 
         /** conversations */
         @field:SerializedName("items")
-        val items: List<ItemsItem?>? = null
+        val items: List<ItemsItem> = emptyList()
 ) : Parcelable

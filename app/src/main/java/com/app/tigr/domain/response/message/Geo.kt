@@ -5,19 +5,21 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import javax.annotation.Generated
 
-/** location information */
+/** location information
+ * @see <a href=" https://vk.com/dev/objects/message">Geo in Vk API</a>
+ */
 @Generated("com.robohorse.robopojogenerator")
 @Parcelize
 data class Geo(
 
         /** type of place */
         @field:SerializedName("type")
-        val type: String? = null,
+        val type: String = "",
 
         @field:SerializedName("coordinates")
-        val coordinates: String? = null,
+        val coordinates: String = "",
 
         @field:SerializedName("place")
-        val place: Place? = null
+        val place: Place = Place()
 
 ) : Parcelable

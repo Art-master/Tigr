@@ -2,6 +2,7 @@ package com.app.tigr
 
 import android.content.Intent
 import android.os.Bundle
+import com.app.tigr.data.AlarmBuilder
 import com.app.tigr.ui.auth.mvp.AuthPresenter
 import com.app.tigr.ui.auth.mvp.ContractView
 import com.app.tigr.ui.chat.mvp.ChatActivity
@@ -59,6 +60,7 @@ class MainActivity : ContractView, MvpAppCompatActivity() {
         val callback = object : VKCallback<VKAccessToken> {
             override fun onResult(res: VKAccessToken?) {
                 presenter.saveToken(res!!.accessToken)
+                AlarmBuilder(applicationContext).build()
                 logOut()
             }
 
@@ -76,6 +78,9 @@ class MainActivity : ContractView, MvpAppCompatActivity() {
     }
 
     override fun logOut() {
+        val alarm = AlarmBuilder(applicationContext)
+        alarm.build()
+        //alarm.enableBootReceiver(applicationContext)
         VKSdk.logout()
         val intent = Intent(applicationContext, ChatActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
