@@ -8,6 +8,7 @@ import com.app.tigr.domain.params.ConversationsParam
 import com.app.tigr.domain.params.InitLongPollServerPrm
 import com.app.tigr.domain.params.LongPollServerPrm
 import com.app.tigr.domain.response.*
+import com.app.tigr.domain.response.lpserver.InitLongPollServer
 import io.reactivex.Single
 
 class ApiProvider {
@@ -82,8 +83,7 @@ class ApiProvider {
                 versionApi = versionApi)
     }
 
-    fun initLongPoolServer(data: InitLongPollServerPrm): Single<InitLongPollServerRsp> {
-        // https://{$server}?act=a_check&key={$key}&ts={$ts}&wait=25&mode=2&version=2
+    fun initLongPoolServer(data: InitLongPollServerPrm): Single<InitLongPollServer> {
         val request = data.run {
             "https://$server?act=a_check&key=$key&ts=$ts&wait=$wait&mode=$mode&version=$version"
         }

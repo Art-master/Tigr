@@ -9,15 +9,15 @@ import kotlinx.android.parcel.Parcelize
 data class InitLongPollServerPrm(
         /** session secret key */
         @field:SerializedName("key")
-        val key: String = "",
+        var key: String = "",
 
         /** server address */
         @field:SerializedName("server")
-        val server: String = "",
+        var server: String = "",
 
         /** the number of the last event from which you want to receive data */
         @field:SerializedName("ts")
-        val ts: Int = 0,
+        var ts: Int = 0,
 
         /** waiting time (sec.)
          * Recommended: 25

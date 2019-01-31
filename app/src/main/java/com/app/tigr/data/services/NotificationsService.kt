@@ -3,13 +3,14 @@ package com.app.tigr.data.services
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
+import android.util.Log
 import com.app.tigr.App
 import com.app.tigr.common.Constants
+import com.app.tigr.data.notification.MessageNotification
 import com.app.tigr.domain.params.InitLongPollServerPrm
 import com.app.tigr.domain.params.LongPollServerPrm
-import com.app.tigr.domain.response.LongPollServerRsp
 import com.app.tigr.domain.response.lpserver.InitLongPollServer
-import com.app.tigr.ui.chat.mvp.ChatActivity
+import com.app.tigr.domain.response.lpserver.LongPollServer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -21,70 +22,104 @@ class NotificationsService : Service() {
 
     private val connection = App.appComponent.getApi()
 
-    private var key = ""
-    private var server = ""
+    private val bind: MyBinder = MyBinder()
 
-    private var ts = 0
+    private val serverParam = InitLongPollServerPrm()
 
     override fun onBind(intent: Intent): IBinder {
-        TODO("Return the communication channel to the service.")
+        return bind
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+    private fun initState() {
         val requestRx = connection.getLongPoolServer(LongPollServerPrm())
                 .observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onSuccess = { it ->
-                            it.response.let {
-                                key = it.key
-                                server = it.server
-                                ts = it.ts
-                                initLongPoolServer()
-                            }
+                            initData(it.response)
+                            initLongPoolServer()
                         },
                         onError = { it.printStackTrace() })
 
         dispose.add(requestRx)
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (serverParam.ts == 0) {
+            initState()
+        } else {
+            initLongPoolServer()
+        }
 
         return START_STICKY
     }
 
+    private fun initData(it: LongPollServer) {
+        serverParam.key = it.key
+        serverParam.server = it.server
+        serverParam.ts = it.ts
+    }
+
     private fun initLongPoolServer() {
-        val requestRx = connection.initLongPoolServer(initParam())
-                .repeat()
+        val requestRx = connection.initLongPoolServer(serverParam)
                 .observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
-                        onNext = { it -> processingData(it.response) },
+                        onSuccess = { it -> processingData(it) },
                         onError = { it.printStackTrace() })
 
         dispose.add(requestRx)
     }
 
-    private fun initParam(): InitLongPollServerPrm {
-        return InitLongPollServerPrm(
-                key = key,
-                server = server,
-                ts = ts,
-                mode = buildMode())
-    }
-
-    private fun buildMode() = InitLongPollServerPrm.Mode.ALL.value
-
     private fun processingData(data: InitLongPollServer) {
-        val intent = Intent(applicationContext, ChatActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        intent.putExtra(Constants.Keys.NEW_MESSAGE.name, data)
-        startActivity(intent)
+        if (data.failed.isEmpty()) {
+            if (data.updates.isEmpty().not()) {
+                sendBroadcast(prepareIntent(data))
+                buildNotifications(data.updates)
+            }
+            newEventNumber(data)
+            dispose.clear()
+            initLongPoolServer()
+        } else {
+            processingErrors(data)
+        }
+
     }
 
-    private fun buildNotifications(data: LongPollServerRsp) {
+    private fun newEventNumber(data: InitLongPollServer) {
+        serverParam.ts = data.ts
+    }
 
+    private fun prepareIntent(data: InitLongPollServer): Intent {
+        val intent = Intent(Constants.Actions.NEW_MESSAGE.value)
+        intent.putExtra(Constants.Keys.REQUEST_DATA.value, data)
+        return intent
+
+    }
+
+    private fun processingErrors(data: InitLongPollServer) {
+        when (data.failed) {
+            "1" -> serverParam.ts = data.ts
+            "2", "3" -> {
+                initState(); initLongPoolServer()
+            }
+            "4" -> {
+                Log.e("VK API ERROR", "wrong version the Long Poll Server")
+            }
+        }
+    }
+
+    private fun buildNotifications(data: List<List<String>>) {
+        MessageNotification(applicationContext).build("https://pp.userapi.com/c846323/v846323375/62896/BH_kmnRii0w.jpg?ava=1")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         dispose.clear()
+    }
+
+    inner class MyBinder : android.os.Binder() {
+        internal val service: NotificationsService
+            get() = this@NotificationsService
     }
 }

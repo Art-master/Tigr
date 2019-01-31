@@ -13,7 +13,15 @@ data class InitLongPollServer(
         @field:SerializedName("ts")
         val ts: Int = 0,
 
+        /** necessary for the messages.getLongPollHistory method to work */
+        @field:SerializedName("pts")
+        val pts: Int = 0,
+
         /** an array whose elements contain the representation of new events */
         @field:SerializedName("updates")
-        val updates: List<List<String>> = emptyList()
+        val updates: List<List<String>> = emptyList(),
+
+        /** necessary for the messages.getLongPollHistory method to work */
+        @field:SerializedName("failed")
+        val failed: String = ""
 ) : Parcelable

@@ -17,8 +17,8 @@ class RetrofitBuilder: AppNetwork {
 
     private val LOG_TAG = "NetworkLog"
 
-    private val readTimeout = 30L to TimeUnit.SECONDS
-    private val connectTimeout = 30L to TimeUnit.SECONDS
+    private val readTimeout = 50L to TimeUnit.SECONDS
+    private val connectTimeout = 5L to TimeUnit.SECONDS
 
     init {
         connection = Retrofit.Builder()

@@ -1,6 +1,7 @@
 package com.app.tigr.data.network
 
 import com.app.tigr.domain.response.*
+import com.app.tigr.domain.response.lpserver.InitLongPollServer
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -54,7 +55,7 @@ interface VkApi{
 
     @GET("method/messages.getLongPollServer")
     fun getLongPoolServer(@Query("need_pts") needPts: Int,
-                          @Query("group_id") groupId: Int,
+                          @Query("group_id") groupId: String,
                           @Query("lp_version") lpVersion: Int,
                           @Query("lang") lang: Int,
                           @Query("test_mode") testMode: Int,
@@ -62,5 +63,5 @@ interface VkApi{
                           @Query("v") versionApi: String): Single<LongPollServerRsp>
 
     @GET
-    fun initLongPoolServer(@Url url: String): Single<InitLongPollServerRsp>
+    fun initLongPoolServer(@Url url: String): Single<InitLongPollServer>
 }
