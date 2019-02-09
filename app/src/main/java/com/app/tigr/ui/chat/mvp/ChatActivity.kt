@@ -13,18 +13,21 @@ import com.app.tigr.R
 import com.app.tigr.common.Constants
 import com.app.tigr.data.services.NotificationServConnection
 import com.app.tigr.data.services.NotificationsService
-import com.app.tigr.domain.response.lpserver.InitLongPollServer
 import kotlinx.android.synthetic.main.activity_chat.*
 import android.content.IntentFilter
-
-
+import com.app.tigr.domain.extras.Message
+import com.arellomobile.mvp.presenter.PresenterType
 
 class ChatActivity: MvpAppCompatActivity(), ContractChatView {
 
-    @InjectPresenter
+    @InjectPresenter(tag = "ChatPresenter", type = PresenterType.GLOBAL)
     lateinit var presenter: ChatPresenter
 
     private lateinit var linearLayoutManager: LinearLayoutManager
+
+    private lateinit var receiver: BroadcastReceiver
+
+    private lateinit var serviceConnection: NotificationServConnection
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,30 +36,31 @@ class ChatActivity: MvpAppCompatActivity(), ContractChatView {
         linearLayoutManager = LinearLayoutManager(this)
         recyclerMessages!!.layoutManager = linearLayoutManager
 
-        if(!presenter.isInRestoreState(this)){
-            presenter.attachView(this)
-            presenter.viewIsReady()
-        }
+        presenter.attachView(this)
+
+        if (savedInstanceState == null) presenter.viewIsReady()
 
         bindNetworkingService()
         createReceiver()
     }
 
     private fun bindNetworkingService() {
+        serviceConnection = NotificationServConnection()
         val intent = Intent(applicationContext, NotificationsService::class.java)
-        bindService(intent, NotificationServConnection(), BIND_AUTO_CREATE)
+        bindService(intent, serviceConnection, BIND_AUTO_CREATE)
     }
 
     private fun createReceiver() {
-        val receiver = object : BroadcastReceiver() {
+        receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-                val data = intent!!.getParcelableExtra<InitLongPollServer>(Constants.Keys.REQUEST_DATA.value)
-
+                val data = intent!!.getParcelableExtra<Message>(Constants.Keys.EVENT_NEW_MESSAGE.value)
+                presenter.dataChanged(data)
             }
         }
-        val intFilter = IntentFilter(Constants.Actions.NEW_MESSAGE.value)
-        registerReceiver(receiver, intFilter)
+        registerReceiver(receiver, getIntentFilter())
     }
+
+    private fun getIntentFilter() = IntentFilter(Constants.Actions.NEW_MESSAGE.value)
 
     override fun showChat(adapter: ChatAdapter) {
         recyclerMessages.adapter = adapter
@@ -65,16 +69,18 @@ class ChatActivity: MvpAppCompatActivity(), ContractChatView {
     override fun onResume() {
         super.onResume()
         presenter.viewIsResumed()
+        registerReceiver(receiver, getIntentFilter())
+        bindNetworkingService()
     }
 
     override fun onPause() {
         super.onPause()
-        presenter.viewIsPaused()
+        unbindService(serviceConnection)
+        unregisterReceiver(receiver)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         presenter.detachView(this)
-        presenter.destroyView(this)
     }
 }

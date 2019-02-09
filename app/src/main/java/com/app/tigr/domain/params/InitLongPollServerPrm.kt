@@ -15,7 +15,7 @@ data class InitLongPollServerPrm(
         @field:SerializedName("server")
         var server: String = "",
 
-        /** the number of the last event from which you want to receive data */
+        /** the number of the last event from which you want to receive audioData */
         @field:SerializedName("ts")
         var ts: Int = 0,
 
@@ -28,7 +28,7 @@ data class InitLongPollServerPrm(
 
         /** additional answer options. Sum of option codes from the [Mode] */
         @field:SerializedName("mode")
-        val mode: Int = 0,
+        val mode: Int = Mode.ALL.value,
 
         /** version to connect to Long Poll */
         @field:SerializedName("version")

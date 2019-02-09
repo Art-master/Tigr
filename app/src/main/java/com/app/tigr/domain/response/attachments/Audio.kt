@@ -4,55 +4,59 @@ import android.os.Parcelable
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Generated("com.robohorse.robopojogenerator")
 @Parcelize
 data class Audio(
 
         @field:SerializedName("id")
-        val id: Int? = null,
+        val id: Int = 0,
 
         /** audio owner ID */
         @field:SerializedName("owner_id")
-        val ownerId: Int? = null,
+        val ownerId: Int = 0,
 
         @field:SerializedName("artist")
-        val artist: String? = null,
+        val artist: String = "",
 
         @field:SerializedName("title")
-        val title: String? = null,
+        val title: String = "",
 
         /** clip audio in seconds */
         @field:SerializedName("duration")
-        val duration: Int? = null,
+        val duration: Int = 0,
 
         /** links to mp3 */
         @field:SerializedName("url")
-        val url: String? = null,
+        val url: String = "",
 
         /** audio text identifier (if available) */
         @field:SerializedName("lyrics_id")
-        val lyricsId: Int? = null,
+        val lyricsId: Int = 0,
 
         /** ID of the album in which the audio recording is located (if assigned) */
         @field:SerializedName("album_id")
-        val albumId: Int? = null,
+        val albumId: Int = 0,
 
         /** ID of the genre from [Genre] */
         @field:SerializedName("genre_id")
-        val genreId: Int? = null,
+        val genreId: Int = 0,
 
         @field:SerializedName("date")
-        val dateAdd: Int? = null,
+        val dateAdd: Int = 0,
 
         /** 1, if the option "Do not display when searching."
          *  If the option is disabled, the field is not returned. */
         @field:SerializedName("no_search")
-        val noSearch: Int? = null,
+        val noSearch: Int = 0,
 
         /** 1 if audio in high quality*/
         @field:SerializedName("is_hq")
-        val isHq: Int? = null
+        val isHq: Boolean = false,
+
+        /** unique object id*/
+        val uniqueId: String = Random().nextInt().toString()
 
 ) : Parcelable {
     enum class Genre constructor(id: Int) {

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notificationPlayer"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/colorGrayText"
+    android:layout_height="64dp">
+
+    <ImageView
+        android:id="@+id/button_previous"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/previous_skip"
+        android:contentDescription="@string/previous_button_desc" />
+
+    <ImageView
+        android:id="@+id/button_play"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:contentDescription="@string/play_button_desc" />
+
+    <ImageView
+        android:id="@+id/button_next"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/next_skip"
+        android:contentDescription="@string/next_button_desc" />
+
+    <TextView
+        android:id="@+id/audioName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/TextAppearance.Compat.Notification.Title" />
+
+    <ImageView
+        android:id="@+id/closeButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="top"
+        android:background="@drawable/close"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="4dp" />
+</LinearLayout>

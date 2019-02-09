@@ -6,19 +6,24 @@ import android.arch.paging.PagedList
 import android.arch.paging.PagedListAdapter
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.app.tigr.R
 import com.app.tigr.domain.response.dialog.ItemsItem
 import com.app.tigr.domain.params.MessageParam
+import com.app.tigr.ui.dialog.HidingScrollListener
 import com.app.tigr.ui.dialog.impl.ContractDialogView
 import com.app.tigr.ui.dialog.list.DialogAdapter
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.PresenterType
 import kotlinx.android.synthetic.main.activity_dialog.*
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.AccelerateInterpolator
+
+
 class DialogActivity: MvpAppCompatActivity(), ContractDialogView {
 
-    @InjectPresenter
+    @InjectPresenter(tag = "dialog_presenter", type = PresenterType.GLOBAL)
     lateinit var presenter: DialogPresenter
 
     private val linearLayoutManager = LinearLayoutManager(this)
@@ -49,17 +54,10 @@ class DialogActivity: MvpAppCompatActivity(), ContractDialogView {
 
         pagedListLiveData.observe(this, Observer { data-> adapter.submitList(data) })
         recyclerDialog.adapter = adapter
-        recyclerDialog.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                senderContainer.apply {
-                    if (dy < 0 && visibility == View.VISIBLE) {
-                        visibility = View.GONE
-                    } else if (dy > 0 && visibility != View.VISIBLE) {
-                        visibility = View.VISIBLE
-                    }
-                }
-            }
+
+        recyclerDialog.addOnScrollListener(object : HidingScrollListener() {
+            override fun onHide() = hideViews()
+            override fun onShow() = showViews()
         })
     }
 
@@ -67,7 +65,29 @@ class DialogActivity: MvpAppCompatActivity(), ContractDialogView {
 
     override fun messageIsSent() {}
 
-    override fun onStop() {
-        super.onStop()
+    private fun hideViews() {
+        senderContainer
+                .animate()
+                .translationY(senderContainer.height.toFloat())
+                .setDuration(300)
+                .setInterpolator(AccelerateInterpolator(1f))
+                .withStartAction { senderContainer.visibility = View.GONE }
+                .start()
+    }
+
+    private fun showViews() {
+        senderContainer
+                .animate()
+                .translationY(0F)
+                .setDuration(300)
+                .setInterpolator(DecelerateInterpolator(1f))
+                .withEndAction { senderContainer.visibility = View.VISIBLE }
+                .start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.detachView(this)
+        recyclerDialog.adapter = null
     }
 }

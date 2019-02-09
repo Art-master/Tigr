@@ -1,13 +1,13 @@
 package com.app.tigr.ui.dialog.list
 
 import android.arch.paging.PagedListAdapter
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.app.tigr.R
 import com.app.tigr.common.TUtils
 import com.app.tigr.data.transformations.CircularTransformation
@@ -21,12 +21,14 @@ import org.jetbrains.anko.image
 import org.jetbrains.anko.padding
 import java.text.SimpleDateFormat
 import java.util.*
-import android.R.raw
+import com.app.tigr.App
+import com.app.tigr.ui.dialog.custom.MusicMsgPlayerLayout
 
 
-
-class DialogAdapter(val context: Context, val peerId: Int, itemCallback: DialogDiffUtilCallback)
+class DialogAdapter(val peerId: Int, itemCallback: DialogDiffUtilCallback)
     : PagedListAdapter<ItemsItem, DialogAdapter.DialogViewHolder>(itemCallback) {
+
+    private val context = App.appComponent.getContext()
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): DialogViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -39,10 +41,12 @@ class DialogAdapter(val context: Context, val peerId: Int, itemCallback: DialogD
     }
 
     inner class DialogViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(items: ItemsItem) {
 
+        fun bind(items: ItemsItem) {
             val userId = items.fromId
             val userItem = getUserById(items.profiles, userId)!!
+
+            view.messageTextContainer.removeAllViews()
 
             chooseSideForMessage(items.fromId)
             loadAvatar(userItem)
@@ -81,13 +85,19 @@ class DialogAdapter(val context: Context, val peerId: Int, itemCallback: DialogD
         }
 
         private fun setTextMessage(item: ItemsItem) {
-            view.textMessage.text = item.text
+            if (item.text.isEmpty().not()) {
+                val textView = TextView(context)
+                textView.text = item.text
+                view.messageTextContainer.addView(textView)
+            }
 
-            view.messageTextContainer.visibility =
+            // view.textMessage.text = item.text
+
+/*            view.messageTextContainer.visibility =
                     if (item.text.isEmpty())
                         View.GONE
                     else
-                        View.VISIBLE
+                        View.VISIBLE*/
         }
 
         private fun prepareAttachments(data: ItemsItem) {
@@ -112,8 +122,17 @@ class DialogAdapter(val context: Context, val peerId: Int, itemCallback: DialogD
                         val url = element.sticker.images[2].url
                         loadSticker(url)
                     }
+
+                    Attachment.Type.AUDIO.value -> {
+                        val musicView = MusicMsgPlayerLayout(context)
+                        musicView.init(element.audio)
+                        view.messageTextContainer.addView(musicView)
+                    }
+                    else -> {
+                    }
                 }
             }
+
         }
 
         private fun clearStickerContainer() {

@@ -16,7 +16,7 @@ data class LastMessage(
         val id: Int = 0,
 
         @field:SerializedName("date")
-        val date: Int = 0,
+        var date: Int = 0,
 
         @field:SerializedName("peer_id")
         val peerId: Int = 0,
@@ -25,7 +25,7 @@ data class LastMessage(
         val fromId: Int = 0,
 
         @field:SerializedName("text")
-        val text: String = "",
+        var text: String = "",
 
         @field:SerializedName("random_id")
         val randomId: Int = 0,

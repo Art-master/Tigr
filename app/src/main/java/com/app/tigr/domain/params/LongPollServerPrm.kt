@@ -10,7 +10,7 @@ data class LongPollServerPrm(
 
         /** 1 - return the pts field required for the method to work */
         @field:SerializedName("need_pts")
-        val needPts: Int = 1, // 1 -  yes , 0 - no
+        val needPts: Int = 0, // 1 -  yes , 0 - no
 
         /** community identifier (for community messages with user access key) */
         @field:SerializedName("group_id")

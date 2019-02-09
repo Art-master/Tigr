@@ -17,7 +17,7 @@ data class LongPollServer(
         @field:SerializedName("server")
         val server: String = "",
 
-        /** the number of the last event from which you want to receive data */
+        /** the number of the last event from which you want to receive audioData */
         @field:SerializedName("ts")
         val ts: Int = 0
 ) : Parcelable

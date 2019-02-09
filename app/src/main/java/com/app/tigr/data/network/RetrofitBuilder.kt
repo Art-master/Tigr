@@ -33,9 +33,9 @@ class RetrofitBuilder: AppNetwork {
         val builder = OkHttpClient.Builder()
                 .readTimeout(readTimeout.first, readTimeout.second)
                 .connectTimeout(connectTimeout.first, connectTimeout.second)
-                .addInterceptor(Interceptors.OfflineCacheInterceptor())
+        //.addInterceptor(Interceptors.OfflineCacheInterceptor())
                 //.addNetworkInterceptor(Interceptors.NetworkCacheInterceptor())
-                .cache(Interceptors.provideCache())
+        //.cache(Interceptors.provideCache())
 
         if (BuildConfig.DEBUG_MODE) {
             builder.addInterceptor(Interceptors.loggingInterceptor(LOG_TAG))

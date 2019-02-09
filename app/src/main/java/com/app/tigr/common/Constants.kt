@@ -14,12 +14,13 @@ class Constants {
         USER_ID("$PROJECT_DIR.user.id"),
         PEER_ID("$PROJECT_DIR.peer.id"),
         MESSAGE("$PROJECT_DIR.text"),
-        REQUEST_DATA("$PROJECT_DIR.request.data"),
-        REQUEST_NEW_MESSAGE("$PROJECT_DIR.request.new.message"),
+        REQUEST_DATA("$PROJECT_DIR.event.audioData"),
+        EVENT_NEW_MESSAGE("$PROJECT_DIR.event.new.message")
     }
 
     enum class Actions constructor(val value: String) {
         NEW_MESSAGE("$PROJECT_DIR.action.new.message"),
+
     }
 
     interface Network{

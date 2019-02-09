@@ -23,12 +23,31 @@ class MessageNotification(private val context: Context) {
         const val NOTIFICATION_ID = 213
     }
 
-    fun build(url: String) {
+    private var msgText = ""
+    private var userName = ""
+    private var imageUrl = ""
+
+    fun setMsgText(text: String): MessageNotification {
+        msgText = text
+        return this
+    }
+
+    fun setUserName(name: String): MessageNotification {
+        userName = name
+        return this
+    }
+
+    fun setImageUrl(url: String): MessageNotification {
+        imageUrl = url
+        return this
+    }
+
+    fun build() {
         val notification = getBuilder()
                 .setSmallIcon(R.drawable.ic_button_send)
-                .setLargeIcon(Picasso.with(context).load(url).get())
-                .setContentTitle("My notification")
-                .setContentText("Hello World!")
+                .setLargeIcon(Picasso.with(context).load(imageUrl).get())
+                .setContentTitle(userName)
+                .setContentText(msgText)
                 .build()
 
         val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager

@@ -23,8 +23,6 @@ import io.reactivex.schedulers.Schedulers
 @InjectViewState
 class DialogPresenter: MvpPresenter<ContractDialogView>(), ContractDialogPresenter {
 
-    private val context = App.appComponent.getContext()
-
     private val dispose = CompositeDisposable()
 
     private var userId: Int = 0
@@ -52,7 +50,7 @@ class DialogPresenter: MvpPresenter<ContractDialogView>(), ContractDialogPresent
         sourceFactory = DialogDataSourceFactory(userId, peerId)
         val pagedListLiveData = LivePagedListBuilder(sourceFactory, config).build()
         val callback = DialogDiffUtilCallback()
-        adapter = DialogAdapter(context, peerId, callback)
+        adapter = DialogAdapter(peerId, callback)
         //adapter.submitList(pagedListLiveData.value)
         return pagedListLiveData to adapter
     }

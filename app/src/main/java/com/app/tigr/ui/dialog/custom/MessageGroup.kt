@@ -1,4 +1,4 @@
-package com.app.tigr.ui.dialog.views
+package com.app.tigr.ui.dialog.custom
 
 import android.content.Context
 import android.graphics.*

@@ -52,4 +52,11 @@ object TUtils {
     }
 
     private fun getContext() = App.appComponent.getContext()
+
+    fun parseDuration(data: Int): String {
+        val operand = data % 60
+        val seconds = if (operand > 10) "$operand" else "0$operand"
+        val minutes = "${data / 60}"
+        return "$minutes : $seconds"
+    }
 }

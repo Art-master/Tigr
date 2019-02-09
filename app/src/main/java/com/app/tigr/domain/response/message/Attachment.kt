@@ -22,7 +22,7 @@ data class Attachment(
         val video: Video? = null,
 
         @field:SerializedName("audio")
-        val audio: Audio? = null,
+        val audio: Audio = Audio(),
 
         @field:SerializedName("doc")
         val doc: Document? = null,

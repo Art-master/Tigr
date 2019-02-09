@@ -5,8 +5,6 @@ import android.content.Intent
 import android.os.IBinder
 import android.util.Log
 import com.app.tigr.App
-import com.app.tigr.common.Constants
-import com.app.tigr.data.notification.MessageNotification
 import com.app.tigr.domain.params.InitLongPollServerPrm
 import com.app.tigr.domain.params.LongPollServerPrm
 import com.app.tigr.domain.response.lpserver.InitLongPollServer
@@ -74,8 +72,7 @@ class NotificationsService : Service() {
     private fun processingData(data: InitLongPollServer) {
         if (data.failed.isEmpty()) {
             if (data.updates.isEmpty().not()) {
-                sendBroadcast(prepareIntent(data))
-                buildNotifications(data.updates)
+                EnentsParser(applicationContext, data.updates)
             }
             newEventNumber(data)
             dispose.clear()
@@ -90,13 +87,6 @@ class NotificationsService : Service() {
         serverParam.ts = data.ts
     }
 
-    private fun prepareIntent(data: InitLongPollServer): Intent {
-        val intent = Intent(Constants.Actions.NEW_MESSAGE.value)
-        intent.putExtra(Constants.Keys.REQUEST_DATA.value, data)
-        return intent
-
-    }
-
     private fun processingErrors(data: InitLongPollServer) {
         when (data.failed) {
             "1" -> serverParam.ts = data.ts
@@ -109,9 +99,6 @@ class NotificationsService : Service() {
         }
     }
 
-    private fun buildNotifications(data: List<List<String>>) {
-        MessageNotification(applicationContext).build("https://pp.userapi.com/c846323/v846323375/62896/BH_kmnRii0w.jpg?ava=1")
-    }
 
     override fun onDestroy() {
         super.onDestroy()

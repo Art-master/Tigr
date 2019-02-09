@@ -6,4 +6,7 @@
 
     <string name="user_avatar_desc" translatable="false">avatar</string>
     <string name="user_sticker_desc" translatable="false">sticker</string>
+    <string name="previous_button_desc">previous</string>
+    <string name="play_button_desc">play</string>
+    <string name="next_button_desc">next</string>
 </resources>
